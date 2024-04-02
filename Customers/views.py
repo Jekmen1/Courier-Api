@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from .models import User, Parcel, DeliveryProof
 from .serializers import UserSerializer, ParcelSerializer, CourierSerializer
 from rest_framework_simplejwt.authentication import JWTAuthentication
-from .permissions import IsOwnerOrAdmin, CustomerPermissions, CourierPermissions, AdminPermissions
+from .permissions import IsOwnerOrAdmin, CustomerPermissions, CourierPermissions, AdminPermissions, ParcelPermissions
 from .filters import ParcelFilter, SenderFilter
 from django_filters.rest_framework import DjangoFilterBackend
 
@@ -17,7 +17,7 @@ class ParcelViewSet(viewsets.ModelViewSet):
     queryset = Parcel.objects.all()
     serializer_class = ParcelSerializer
     authentication_classes = [JWTAuthentication]
-    permission_classes = [CustomerPermissions | AdminPermissions]
+    permission_classes = [ParcelPermissions | AdminPermissions]
     filter_backends = [DjangoFilterBackend]
     filterset_class = SenderFilter
 
